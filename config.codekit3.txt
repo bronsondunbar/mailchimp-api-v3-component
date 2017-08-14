@@ -9,11 +9,41 @@
 	],
 "creatorBuild": "25849",
 "files": {
+	"\/.gitignore": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/.gitignore",
+		"oF": 0
+		},
 	"\/build": {
 		"ft": 65536,
 		"oA": 1,
 		"oAP": "\/build\/build",
 		"oF": 0
+		},
+	"\/config.codekit3.txt": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/config.codekit3.txt",
+		"oF": 0
+		},
+	"\/README.md": {
+		"cS": 0,
+		"eF": 1,
+		"eL": 1,
+		"eLB": 0,
+		"ema": 1,
+		"eSQ": 1,
+		"ft": 4096,
+		"oA": 0,
+		"oAP": "\/build\/README.html",
+		"oF": 0,
+		"oFM": 0,
+		"oS": 0,
+		"pHT": 0,
+		"pME": 1,
+		"rFN": 0,
+		"uCM": 0
 		},
 	"\/source\/fonts\/fontawesome-webfont.eot": {
 		"ft": 8192,
@@ -144,6 +174,19 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"\/source\/sass\/_messages.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/build\/sass\/_messages.css",
+		"oF": 0,
+		"oS": 0,
+		"uL": 1
+		},
 	"\/source\/sass\/_typography.scss": {
 		"aP": 0,
 		"bl": 0,
@@ -170,19 +213,6 @@
 		"oS": 0,
 		"uL": 1
 		},
-	"\/source\/sass\/messages.scss": {
-		"aP": 0,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/build\/sass\/messages.css",
-		"oF": 0,
-		"oS": 0,
-		"uL": 1
-		},
 	"\/source\/sass\/style.scss": {
 		"aP": 0,
 		"bl": 0,
@@ -203,8 +233,8 @@
 	},
 "projectAttributes": {
 	"creationDate": 523465676,
-	"displayValue": "mailchimp-api-v3-component",
-	"displayValueWasSetByUser": 0,
+	"displayValue": "php-mailchimp-api-v3-component",
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-gavin",
 	"lastBuiltDate": 524260993
 	},
