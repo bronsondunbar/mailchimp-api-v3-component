@@ -9734,3 +9734,9 @@ header {
   display: block;
   margin: 0 auto;
   width: 30%; }
+
+.panel-default {
+  border: none; }
+
+.panel {
+  border-radius: 0; }
