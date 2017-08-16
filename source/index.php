@@ -2,7 +2,7 @@
   
 include 'includes/MailChimp.php';
 
-/* Global */
+/* Declare variables */
 
 $captcha = "";
 $captchaError = "";
@@ -13,7 +13,7 @@ $nameError = "";
 $userEmail = "";
 $emailError = "";
 
-/* Get values from form */
+/* Only get values from form once it has been submitted */
 
 if(isset($_POST['submit'])) {
 
@@ -44,10 +44,14 @@ if(isset($_POST['submit'])) {
 
   }
 
+  /* Set Google reCAPTCHA settings here */
+
   $secret = "PRIVATE_KEY";
   $ip = $_SERVER['REMOTE_ADDR'];
   $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha."&remoteip=".$ip);
   $responseKeys = json_decode($response,true);
+
+  /* Only if Google reCAPTCHA returns success move on to MailChimp API */
 
   if(intval($responseKeys["success"]) !== 1) {
 
@@ -55,9 +59,13 @@ if(isset($_POST['submit'])) {
 
   } else {
 
-   $userAgree = $_POST['userAgree'];
+    /* Check to see if user agrees to join mailing list */
 
-   if ($userAgree == "Yes") {
+    $userAgree = $_POST['userAgree'];
+
+    if ($userAgree == "Yes") {
+
+      /* Set MailChimp API details here */
 
       $MailChimp = new MailChimp('MAILCHIMP_API');
       $list_id = 'LIST_ID';
@@ -70,21 +78,23 @@ if(isset($_POST['submit'])) {
         ]
       ]);
 
+      /* Return appropriate message depening on what the MailChimp API returns */
+
       if ($MailChimp->success()) {
 
-        $mailChimpSuccess = "<label class='message success'><i class='fa fa-check' aria-hidden='true'></i> You are subscribed!</label>";
+        $mailChimpMessage = "<label class='message success'><i class='fa fa-check' aria-hidden='true'></i> You are subscribed!</label>";
 
       } else {
 
-        $mailChimpError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i>" . $MailChimp->getLastError() . "</label>";
+        $mailChimpMessage = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i>" . $MailChimp->getLastError() . "</label>";
 
       }
 
-   } else {
+    } else {
 
-    $agreeError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i> Please check the box above.</label>";
+      $agreeError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i> Please check the box above.</label>";
 
-   }
+    }
 
   }
 
@@ -171,11 +181,11 @@ if(isset($_POST['submit'])) {
       <form name="form" id="form" method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
         <label for="name">What is your name?</label>
         <?php echo $userError ?>
-        <input id="name" name="name" class="form" placeholder="John" type="text" required>
+        <input id="name" name="name" placeholder="John" type="text" required>
 
         <label for="email">What is your email address?</label>
         <?php echo $emailError ?>
-        <input id="email" name="email" class="form" placeholder="john@doe.com" type="email" required>
+        <input id="email" name="email" placeholder="john@doe.com" type="email" required>
 
         <ul class="form-list">
           <li><input id="userAgree" name="userAgree" type="checkbox" value="Yes" ></li>
@@ -190,8 +200,7 @@ if(isset($_POST['submit'])) {
 
         <input id="submitForm" name="submit" type="submit" class="btn btn-lg btn-default" value="Sign me up">
 
-        <?php echo $mailChimpError ?>
-        <?php echo $mailChimpSuccess ?>
+        <?php echo $mailChimpMessage ?>
       </form>
 
     </div>
