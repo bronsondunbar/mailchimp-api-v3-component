@@ -198,9 +198,9 @@ if(isset($_POST['submit'])) {
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <?php echo $captchaError ?>
 
-        <input id="submitForm" name="submit" type="submit" class="btn btn-lg btn-default" value="Sign me up">
-
         <?php echo $mailChimpMessage ?>
+
+        <input id="submitForm" name="submit" type="submit" class="btn btn-lg btn-default" value="Sign me up">
       </form>
 
     </div>
