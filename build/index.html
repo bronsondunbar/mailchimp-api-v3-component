@@ -1,106 +1,3 @@
-<?php
-  
-include 'includes/MailChimp.php';
-
-/* Declare variables */
-
-$captcha = "";
-$captchaError = "";
-
-$userName = "";
-$nameError = "";
-
-$userEmail = "";
-$emailError = "";
-
-/* Only get values from form once it has been submitted */
-
-if(isset($_POST['submit'])) {
-
-  if(isset($_POST['g-recaptcha-response'])){
-
-   $captcha=$_POST['g-recaptcha-response'];
-
-  }
-
-  if (empty($_POST['name'])) {
-
-   $userError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i> Please type your name.</label>";
-
-  } else {
-
-   $userName = trim($_POST['name']);
-   $userName = ucwords($userName);
-
-  }
-
-  if (empty($_POST['email'])) {
-
-   $emailError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i> Please type your email.</label>";
-
-  } else {
-
-   $userEmail = trim($_POST['email']);
-
-  }
-
-  /* Set Google reCAPTCHA settings here */
-
-  $secret = "PRIVATE_KEY";
-  $ip = $_SERVER['REMOTE_ADDR'];
-  $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha."&remoteip=".$ip);
-  $responseKeys = json_decode($response,true);
-
-  /* Only if Google reCAPTCHA returns success move on to MailChimp API */
-
-  if(intval($responseKeys["success"]) !== 1) {
-
-   $captchaError = "<label class='error'><i class='fa fa-times' aria-hidden='true'></i> Please verify that you are human.</label>";
-
-  } else {
-
-    /* Check to see if user agrees to join mailing list */
-
-    $userAgree = $_POST['userAgree'];
-
-    if ($userAgree == "Yes") {
-
-      /* Set MailChimp API details here */
-
-      $MailChimp = new MailChimp('MAILCHIMP_API');
-      $list_id = 'LIST_ID';
-
-      $result = $MailChimp->post("lists/$list_id/members", [
-        'email_address' => $userEmail,
-        'status'        => 'subscribed',
-        'merge_fields'  => [
-          'NAME'     => $userName
-        ]
-      ]);
-
-      /* Return appropriate message depening on what the MailChimp API returns */
-
-      if ($MailChimp->success()) {
-
-        $mailChimpMessage = "<label class='message success'><i class='fa fa-check' aria-hidden='true'></i> You are subscribed!</label>";
-
-      } else {
-
-        $mailChimpMessage = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i>" . $MailChimp->getLastError() . "</label>";
-
-      }
-
-    } else {
-
-      $agreeError = "<label class='message error'><i class='fa fa-times' aria-hidden='true'></i> Please check the box above.</label>";
-
-    }
-
-  }
-
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -142,6 +39,8 @@ if(isset($_POST['submit'])) {
 
   <body>
 
+  <div class="message"></div>
+
     <div class="container">
 
       <header>
@@ -178,13 +77,11 @@ if(isset($_POST['submit'])) {
 
       <h2>Example</h2>
 
-      <form name="form" id="form" method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
+      <form name="form" id="form" method="POST" action="#">
         <label for="name">What is your name?</label>
-        <?php echo $userError ?>
         <input id="name" name="name" placeholder="John" type="text" required>
 
         <label for="email">What is your email address?</label>
-        <?php echo $emailError ?>
         <input id="email" name="email" placeholder="john@doe.com" type="email" required>
 
         <ul class="form-list">
@@ -192,17 +89,14 @@ if(isset($_POST['submit'])) {
           <li><label for="userAgree">I agree to join the mailing list.</label></li>
         </ul>
 
-        <?php echo $agreeError ?>
-
         <div class="g-recaptcha" data-sitekey="SITE_KEY"></div>
         <script src='https://www.google.com/recaptcha/api.js'></script>
-        <?php echo $captchaError ?>
-
-        <?php echo $mailChimpMessage ?>
 
         <input id="submitForm" name="submit" type="submit" class="btn btn-lg btn-default" value="Sign me up">
       </form>
 
     </div>
+
+    <script src="js/app.js?v=1626"></script>
   </body>
 </html>

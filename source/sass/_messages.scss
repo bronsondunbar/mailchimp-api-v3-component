@@ -3,9 +3,11 @@
 
 .message {
 
-	position: relative;
-	margin: 15px 0 0 0;
+	position: fixed;
+	display: none;
+	top: 0;
 	padding: 15px;
+	width: 100%;
 	text-align: center;
 
 	p {
