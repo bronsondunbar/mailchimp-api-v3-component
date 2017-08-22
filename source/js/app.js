@@ -67,6 +67,12 @@ $("form").submit(function (event) {
         });
         grecaptcha.reset();
 
+        /* Reset all form fields after successful submission */
+
+        $("#name").val("");
+        $("#email").val("");
+        $("#userAgree").attr("checked", false);
+
       } else if (data.responseJSON.agreeError != undefined) {
 
         $(".message").removeClass("success");
