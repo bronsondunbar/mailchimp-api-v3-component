@@ -13,11 +13,15 @@ $nameError = "";
 $userEmail = "";
 $emailError = "";
 
+/* Check if the Google reCAPTCHA has been set */
+
 if(isset($_POST['g-recaptcha-response'])){
 
  $captcha=$_POST['g-recaptcha-response'];
 
 }
+
+/* Check and make sure all form fields have data and populate response object with appropriate messages */
 
 if (empty($_POST['name'])) {
 
@@ -74,8 +78,6 @@ if(intval($responseKeys["success"]) !== 1) {
       ]
     ]);
 
-    /* Return appropriate message depening on what the MailChimp API returns */
-
     if ($MailChimp->success()) {
 
       $responseData["mailChimpMessage"] = "<i class='fa fa-check' aria-hidden='true'></i> You are subscribed!";
@@ -93,6 +95,8 @@ if(intval($responseKeys["success"]) !== 1) {
   }
 
 }
+
+/* Return all responses gathered */
 
 echo json_encode($responseData);
 
