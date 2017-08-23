@@ -2,7 +2,7 @@
 
 This example uses the MailChimp API v3 created by <a href="https://github.com/drewm/mailchimp-api" target="_blank">Drew McLellan</a>.
 
-It also includes Google reCAPTCHA to ensure there are no spam subscribes.
+It also includes Google reCAPTCHA to ensure there is no spam subscribes.
 
 I have also added a check that the person agrees to join the mailing list.
 
