@@ -2,8 +2,6 @@
   
 include 'includes/MailChimp.php';
 
-/* Declare variables */
-
 $captcha = "";
 $captchaError = "";
 
@@ -13,15 +11,11 @@ $nameError = "";
 $userEmail = "";
 $emailError = "";
 
-/* Check if the Google reCAPTCHA has been set */
-
 if(isset($_POST['g-recaptcha-response'])){
 
  $captcha=$_POST['g-recaptcha-response'];
 
 }
-
-/* Check and make sure all form fields have data and populate response object with appropriate messages */
 
 if (empty($_POST['name'])) {
 
@@ -44,14 +38,10 @@ if (empty($_POST['email'])) {
 
 }
 
-/* Set Google reCAPTCHA settings here */
-
 $secret = "PRIVATE_KEY";
 $ip = $_SERVER['REMOTE_ADDR'];
 $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha."&remoteip=".$ip);
 $responseKeys = json_decode($response,true);
-
-/* Only if Google reCAPTCHA returns success move on to MailChimp API */
 
 if(intval($responseKeys["success"]) !== 1) {
 
@@ -59,13 +49,9 @@ if(intval($responseKeys["success"]) !== 1) {
 
 } else {
 
-  /* Check to see if user agrees to join mailing list */
-
   $userAgree = $_POST['userAgree'];
 
   if ($userAgree == "Yes") {
-
-    /* Set MailChimp API details here */
 
     $MailChimp = new MailChimp('MAILCHIMP_API');
     $list_id = 'LIST_ID';
@@ -95,8 +81,6 @@ if(intval($responseKeys["success"]) !== 1) {
   }
 
 }
-
-/* Return all responses gathered */
 
 echo json_encode($responseData);
 
