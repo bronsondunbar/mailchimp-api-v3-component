@@ -16,7 +16,7 @@ $("form").submit(function (event) {
           scrollTop: 0 
       }, "fast");
 
-      $(".loader").fadeIn();
+      $(".loader").css("visibility", "visible");
       $("body").css("overflow", "hidden");
     },
 
@@ -75,7 +75,7 @@ $("form").submit(function (event) {
 
       }
 
-      $(".loader").fadeOut();
+      $(".loader").css("visibility", "hidden");
       $("body").css("overflow", "scroll");
 
     }
