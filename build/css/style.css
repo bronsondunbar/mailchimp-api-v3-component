@@ -7796,6 +7796,17 @@ form {
     margin: 0 auto;
     padding: 0 !important; }
 
+input, textarea {
+  background: none;
+  border: 1px solid #dddddd;
+  padding: 5px;
+  width: 100%;
+  text-align: center; }
+  input:focus, textarea:focus {
+    border: 1px solid #3ba30d;
+    -webkit-box-shadow: 0 0 20px rgba(59, 163, 13, 0.6);
+            box-shadow: 0 0 20px rgba(59, 163, 13, 0.6); }
+
 .card {
   border: none;
   margin: 0 0 15px 0; }
@@ -7805,8 +7816,10 @@ form {
   border: none;
   color: #ffffff; }
 
-blockquote {
-  font-size: 2em;
-  font-style: italic;
-  color: #3ba30d; }
+.form-list {
+  list-style-type: none;
+  margin: 15px 0;
+  padding: 0; }
+  .form-list li {
+    display: inline-block; }
 /*# sourceMappingURL=style.css.map */

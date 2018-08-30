@@ -50,6 +50,23 @@ form {
 
 }
 
+input, textarea {
+
+	background: none;
+	border: 1px solid $lightGray;
+	padding: 5px;
+	width: 100%;
+	text-align: center;
+
+	&:focus {
+
+		border: 1px solid $green;
+		box-shadow: $lightGreenShadow;
+
+	}
+
+}
+
 .card {
 
 	border: none;
@@ -65,10 +82,16 @@ form {
 
 }
 
-blockquote {
+.form-list {
 
-	font-size: 2em;
-	font-style: italic;
-	color: $green;
+	list-style-type: none;
+	margin: 15px 0;
+	padding: 0;
+
+	li {
+
+		display: inline-block;
+
+	}
 
 }
